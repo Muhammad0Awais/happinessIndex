@@ -1,0 +1,198 @@
+doctype html
+
+html(lang='en')
+  head
+      title HappinessIndex Hackathon
+  body
+    h1(align='center') HappinessIndex Hackathon
+
+    table.table.table-striped(style='width:70%', border='1', align='center')
+      tr(style="background-color: #B0C4DE;")
+        th Question (Russian)
+        th Agree
+        th Disagree
+        th Mean
+        th tags
+        th HappinessIndex
+        th Cumulative Scores
+
+      each r in results
+        tr(style="background-color: #FFF0F5;")
+          td= r.rus
+          td= r.agree
+          td= r.disagree
+          td= r.mean
+          td= r.tag
+          td= r.happiness_Index
+          td= r.happiness_Score
+    div(align='center' style="transform: rotate(-180deg);")
+        each val in results[len].cumulativeAgreements
+            -var day = 2+val;
+            svg(width='50' height='110')
+              rect(width='50' height=day style='fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0);')
+    p(align='center') Agreement-Disagreement Graph
+    h3(align='center') Day statistics
+    table.table.table-striped(style='width:70%', border='1', align='center')
+          tr(style="background-color: #B0C4DE;")
+            th Sunday
+            th Monday
+            th Tuesday
+            th Wednesday
+            th Thursday
+            th Friday
+            th Saturday
+
+
+          tr(style="background-color: #FFF0F5;" align='center')
+              each vc in results[len].cumulativedays
+                - var h = vc;
+                div(style="height: h; width: 5px; background-color: black;float: inline-start;")
+                td= vc
+    div(align='center' style="transform: rotate(-180deg);")
+            each val in results[len].cumulativedays
+                -var day = 2+val;
+                svg(width='50' height='110')
+                  rect(width='50' height=day style='fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0);')
+    p(align='center') Day Statistics Graph
+    h3(align='center') Time statistics
+    table.table.table-striped(style='width:70%', border='1', align='center')
+        tr(style="background-color: #B0C4DE;")
+          each hl in results[0].hourlabels
+              th= hl
+
+
+        tr(style="background-color: #FFF0F5;" align='center')
+          each vc in results[len].cumulativehours
+                - var h = vc;
+                div(style="height: h; width: 5px; background-color: black;float: inline-start;")
+                td= vc
+
+    div(align='center' style="transform: rotate(180deg);")
+        each val in results[len].cumulativehours
+            -var hour = 2+val
+            svg(width='50' height='110')
+              rect(width='50' height=hour style='fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0);')
+    p(align='center') Time Statistics Graph
+    div(align='center')
+        form(name="myForm" action="/questions" method="post" style='display: inline-block;')
+            fieldset(style='background-color: #eeeeee;')
+                legend(style='background-color: gray; color: white; padding: 5px 10px;') Save Question:
+                h3 Question
+                p English Question
+                input(
+                    type='text'
+                    name='enquestion'
+                    id='enquestionInput'
+                )
+                p Russian Question
+                input(
+                    type='text'
+                    name='ruquestion'
+                    id='ruquestionInput'
+                )
+                h3 Tags
+                input(
+                  type='radio'
+                  name='tags'
+                  id='personalbox'
+                  value='1'
+                )
+                label(for="personalbox") Personal
+                input(
+                      type='radio'
+                      name='tags'
+                      id='healthbox'
+                      value='2'
+                )
+                label(for="healthbox") Health
+                input(
+                      type='radio'
+                      name='tags'
+                      id='financialbox'
+                      value='3'
+                )
+                label(for="financialbox") Financial
+                input(
+                      type='radio'
+                      name='tags'
+                      id='socialbox'
+                      value='4'
+                    )
+                label(for="socialbox") Social
+                input(
+                      type='radio'
+                      name='tags'
+                      id='environmentalbox'
+                      value='5'
+                    )
+                label(for="environmentalbox") Environmental
+                input(
+                      type='radio'
+                      name='tags'
+                      id='politicalbox'
+                      value='6'
+                    )
+                label(for="politicalbox") Political
+                input(
+                      type='radio'
+                      name='tags'
+                      id='emotionalbox'
+                      value='7'
+                    )
+                label(for="emotionalbox") Emotional
+                input(
+                  type='radio'
+                  name='tags'
+                  id='psychologicalbox'
+                  value='8'
+                )
+                label(for="psychologicalbox") Psychological
+                h3 Output Shape
+
+                input(type='radio', name='tf', value='1')#wnr1
+                label(for='wnr1') True/False
+                input(type='radio', name='tf', value='2')#wnr2
+                label(for='wnr2') 1-5
+                input(type='radio', name='tf', value='3')#wnr3
+                label(for='wnr3') 1-9
+                p
+                button(type="submit") Save Question
+//-     canvas#chartPic
+//-     script(src='script.js')
+
+//-     figure
+//-           figcaption A graph that shows the number of fruit collected
+//-           svg.chart(version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='420' height='150' aria-labelledby='title' role='img')
+//-             title#title A bart chart showing information
+//-             each vc in results[5].cumulativedays
+//-                 -var day = 10+vc;
+//-                 g.bar
+//-                   rect(width=day height='19' style="display:inline")
+//-                   text(x='45' y='9.5' dy='.35em')
+
+
+
+
+    // ====== Jquery js ======
+
+//-         label(for='wnr1') True/False
+//-             i.yes
+//-             span.
+//-               True/False
+//-             br
+//-             small 1:00 to 1:45 PM CDT
+//-
+//-         label(for='wnr2')
+//-             i.yes
+//-             span.
+//-               1-5
+//-             br
+//-             small 8:00 to 8:45 AM CDT /  2:00 - 2:45 PM BST
+//-
+//-         label(for='wnr3')1-9
+//-             i.yes
+//-             span.
+//-               1-9
+
+//-         th Question (Russian)
+//-         td= r.rus

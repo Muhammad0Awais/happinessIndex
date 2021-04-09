@@ -1,0 +1,55 @@
+i.yes {
+  display: none;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid darken(#ffe, 10%);
+  background-color: lighten(#ffe, 20%);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+i.yes:after {
+  content: "Yes, I am attending.";
+}
+
+#yes {
+  display: block;
+}
+#register_webinar {
+  input {
+    display: inline-block;
+  }
+  label {
+    display: block;
+    position: relative;
+    margin: 0.67rem;
+    padding: 0.67rem;
+    background-color: #ffe;
+    border: 1px solid darken(adjust-hue(#ffe, -23deg), 15%);
+    transition: all 0.4s ease-in-out;
+  }
+
+  input#wnr1:checked {
+    & ~ label[for="wnr1"] {
+      background-color: #eee !important;
+      & > i.yes {
+        @extend #yes;
+      }
+    }
+  }
+  input#wnr2:checked {
+    & ~ label[for="wnr2"] {
+      background-color: #eee !important;
+      & > i.yes {
+        @extend #yes;
+      }
+    }
+  }
+  input#wnr3:checked {
+    & ~ label[for="wnr3"] {
+      background-color: #eee !important;
+      & > i.yes {
+        @extend #yes;
+      }
+    }
+  }
+}

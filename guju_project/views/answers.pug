@@ -1,0 +1,13 @@
+doctype html
+
+html(lang='en')
+  body
+    div Question
+    p #{result}
+    table.table.table-striped
+      tr
+        th Answer
+
+      each answer in answers
+        tr
+          td= answer.answer
